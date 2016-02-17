@@ -23,7 +23,6 @@ public class OfySignBlogServlet extends HttpServlet {
 
         String title = req.getParameter("title");
         String content = req.getParameter("content");
-        System.out.println("!!!!!!!!!!" + title + "\n" + content);
         BlogPost post = new BlogPost();
         if(title == null) {
         	post = new BlogPost(user, content);
