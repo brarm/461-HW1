@@ -1,4 +1,4 @@
-package guestbook;
+package blog;
 
 import java.util.Date;
 

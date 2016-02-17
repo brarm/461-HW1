@@ -1,5 +1,5 @@
-//http://1-dot-ofy-guestbook-1208.appspot.com/ofyguestbook.jsp
-package guestbook;
+//http://1-dot-ofy-blog-1208.appspot.com/ofyguestbook.jsp
+package blog;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
