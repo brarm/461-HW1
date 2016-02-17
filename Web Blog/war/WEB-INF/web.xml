@@ -6,7 +6,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet>
 		<servlet-name>OfySign</servlet-name>
-		<servlet-class>guestbook.OfySignBlogServlet</servlet-class>
+		<servlet-class>blog.OfySignBlogServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>OfySign</servlet-name>

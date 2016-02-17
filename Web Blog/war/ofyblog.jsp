@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%@ page import="java.util.*" %>
-<%@ page import="guestbook.BlogPost" %>
+<%@ page import="blog.BlogPost" %>
 <%@ page import="com.google.appengine.api.users.User" %>
 <%@ page import="com.google.appengine.api.users.UserService" %>
 <%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
@@ -45,7 +45,7 @@
 		if (blogPosts.size() > 5) blogPosts = new ArrayList<BlogPost>(blogPosts.subList(0, 5));
 	    if (blogPosts.isEmpty()) {
 	        %>
-	        <p>Guestbook '${fn:escapeXml(blogName)}' has no messages.</p>
+	        <p>Blog '${fn:escapeXml(blogName)}' has no messages.</p>
 	        <%
 	    } else {
 	        %>
