@@ -47,7 +47,6 @@
 	}
 	
 	List<BlogPost> blogPosts = ObjectifyService.ofy().load().type(BlogPost.class).list();
-	System.out.println(blogPosts + "!!!!!!");
 	Collections.sort(blogPosts);
 	pageContext.setAttribute("blogPosts", blogPosts);
 %>
@@ -75,9 +74,7 @@
 		   </c:choose>
 	   </div>
 	
-
-
-		<c:choose>
+	   <c:choose>
 			<c:when test="${empty blogPosts}">
 				<p>Blog ${blogName} has no messages.</p>
 			</c:when>
