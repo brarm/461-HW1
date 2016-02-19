@@ -19,8 +19,8 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 public class EmailSubscriptionServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        
-        List<Subscriber> currentSubscribers = ofy().load().type(Subscriber.class).list();
+        System.out.println("doPost in EmailSubscription");
+		List<Subscriber> currentSubscribers = ofy().load().type(Subscriber.class).list();
         String newEmail = req.getParameter("email");
         if (currentSubscribers.contains(newEmail)) {
         	ofy().delete().type(Subscriber.class).id(newEmail).now();
@@ -28,6 +28,5 @@ public class EmailSubscriptionServlet extends HttpServlet {
         else {
         	ofy().save().entity(new Subscriber(newEmail)).now();
         }
-        
 	}
 }
