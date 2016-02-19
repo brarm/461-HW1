@@ -21,24 +21,12 @@ public class Subscriber {
 		emailAddress = email;
 	}
 	
-//	public boolean equals(Object obj) {
-//		if(obj == null)
-//			return false;
-//		Subscriber sub = (Subscriber)obj;
-//		if(this.email == sub)
-//			return true;
-//		
-//		if (email.equals(emailAddress)) {
-//			return true;
-//		}
-//		return false;
-//	}
-	
-	public boolean equals(String email) {
-		if (email.equals(this.emailAddress)) {
-			return true;
-		}
-		return false;
+	public boolean equals(Object obj) {
+		if(!(obj instanceof Subscriber))
+			return false;
+		Subscriber sub = (Subscriber)obj;
+		if(this == sub) return true;
+		return this.emailAddress.equals(sub.emailAddress); 
 	}
 	
 }
