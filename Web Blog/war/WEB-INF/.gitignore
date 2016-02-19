@@ -1,1 +1,3 @@
 /classes/
+*.bin
+datastore-indexes-auto.xml
