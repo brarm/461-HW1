@@ -28,6 +28,7 @@
 </head>
 
 <%
+	ObjectifyService.register(blog.Subscriber.class);
 	ObjectifyService.register(blog.BlogPost.class);	
 	UserService userService = UserServiceFactory.getUserService();
 	User user = userService.getCurrentUser();

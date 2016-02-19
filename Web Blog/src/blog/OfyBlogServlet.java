@@ -1,4 +1,4 @@
-//http://1-dot-ofy-blog-1208.appspot.com/ofyguestbook.jsp
+
 package blog;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
@@ -26,10 +26,6 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 
 public class OfyBlogServlet extends HttpServlet {
 	
-	static {
-		ObjectifyService.register(blog.BlogPost.class);
-		ObjectifyService.register(BlogPost.class);
-	}
 	
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
