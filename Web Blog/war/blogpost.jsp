@@ -38,7 +38,7 @@
 			<p class="lead blog-description">Write a new post here</p>
 		</div>
     	
-	    <form class="form-horizontal" role="form" action="/ofysign" method="post">
+	    <form class="form-horizontal" role="form" action="/post" method="post">
 	    	<div class="form-group row">
 	    		<div class="text-center">
 	    			<h1></h1>
@@ -59,6 +59,9 @@
 		    <div class="form-group row"> 
 		      <div class="col-sm-offset-2 col-sm-10 text-center">
 		        <button type="submit" class="btn btn-primary">Post to Blog</button>
+		        <form action="/home" method="get">
+		        	<button type="button" class="btn btn-default">Cancel</button>
+		        </form>
 		      </div>
 		    </div>
 	    </form>

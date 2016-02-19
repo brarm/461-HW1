@@ -1,4 +1,4 @@
-
+//http://1-dot-ofy-blog-1208.appspot.com/ofyguestbook.jsp
 package blog;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.servlet.FilterChain;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -26,24 +27,37 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 
 public class OfyBlogServlet extends HttpServlet {
 	
+	String blogName = "";
 	
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
-        UserService userService = UserServiceFactory.getUserService();
-        User user = userService.getCurrentUser();
-
-        String title = req.getParameter("title");
-        String content = req.getParameter("content");
-        BlogPost post = new BlogPost();
-        if(title == null) {
-        	post = new BlogPost(user, content);
-        } else { 
-        	post = new BlogPost(user, title, content);
-        }
-
-        Objectify ofy = ofy();
-        ofy().save().entity(post).now();   // synchronous
-        //String guestbookName = req.getParameter("guestbookName");
-        resp.sendRedirect("/ofyblog.jsp");
-    }
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+		ObjectifyService.register(blog.BlogPost.class);
+		ObjectifyService.register(blog.Subscriber.class);
+		blogName = config.getInitParameter("blogName");
+		System.out.println("----- init done -----");
+	}
+	
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+		System.out.println("do get in ofyBlog!!!!!");
+		UserService userService = UserServiceFactory.getUserService();
+		User user = userService.getCurrentUser();
+					
+		if(userService.isUserLoggedIn()) {
+			req.setAttribute("user", user);
+			req.setAttribute("email", user.getEmail());
+		}
+		
+		String blogName = this.blogName;
+		req.setAttribute("blogName", blogName);
+		
+		List<BlogPost> blogPosts = ObjectifyService.ofy().load().type(BlogPost.class).list();
+		Collections.sort(blogPosts);
+		req.setAttribute("blogPosts", blogPosts);
+		
+		List<Subscriber> currentSubscribers = ObjectifyService.ofy().load().type(Subscriber.class).list();	    
+	    req.setAttribute("currentSubscribers", currentSubscribers);
+	    System.out.println("forwarding to /ofyblog.jsp from BlogServlet doGet");
+		req.getRequestDispatcher("/ofyblog.jsp").forward(req, resp);
+		System.out.println("after forward to /ofyblog.jsp from BlogServlet doGet\n\n");
+	}
 }

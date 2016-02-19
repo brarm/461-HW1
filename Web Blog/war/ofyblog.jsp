@@ -28,34 +28,6 @@
 	<![endif]-->
 </head>
 
-<%
-	ObjectifyService.register(blog.Subscriber.class);
-	ObjectifyService.register(blog.BlogPost.class);	
-	UserService userService = UserServiceFactory.getUserService();
-	User user = userService.getCurrentUser();
-	pageContext.setAttribute("userService", userService);
-	
-	if (user != null) {
-		pageContext.setAttribute("user", user);
-	} else {
-		pageContext.setAttribute("user", null);
-	}
-	
-	String blogName = request.getParameter("blogName");
-	if (blogName == null) {
-		pageContext.setAttribute("blogName", "Default Blog");
-	} else {
-		pageContext.setAttribute("blogName", blogName);
-	}
-	
-	List<BlogPost> blogPosts = ObjectifyService.ofy().load().type(BlogPost.class).list();
-	Collections.sort(blogPosts);
-	pageContext.setAttribute("blogPosts", blogPosts);
-	
-	List<Subscriber> currentSubscribers = ObjectifyService.ofy().load().type(Subscriber.class).list();
-    String newEmail = user.getEmail();
-%>
-
 <body>
 
 	<div class="container">
@@ -68,21 +40,30 @@
 		   <c:choose>
 		   	<c:when test="${user != null}">
 		   		<h3>Hello, ${user.nickname}!</h3>
-		   		<a href="PostPage.jsp" class="btn btn-primary" role="button">Create Post</a>
-		   		<a href="<%= userService.createLogoutURL(request.getRequestURI()) %>" class="btn btn-primary" role="button">Sign out</a>
 		   		
+		   		<form class="form-inline" action="/post" method="get">
+		   			<div class="form-group">
+	   					<input type="submit" class="btn btn-primary" role="button"Create Post</button>
+	   				</div>
+   				</form>
+   				<form class="form-inline">
+	   				<div class="form-group">
+	   					
+	   					<a href="<%= ((UserService)request.getAttribute("userService")).createLogoutURL(request.getRequestURI()) %>" class="btn btn-primary" role="button">Sign Out</button>
+	   				</div>
+				</form>
 		   	</c:when>
 		   	<c:otherwise>
 		   		<h3>Hello!</h3>
 		   		<h4>You must be signed in to post</h4>
-		   		<p><a href="<%= userService.createLoginURL(request.getRequestURI()) %>" class="btn btn-success" role="button">Sign in</a>
+		   		<p><a href="<%= ((UserService)request.getAttribute("userService")).createLoginURL(request.getRequestURI()) %>" class="btn btn-success" role="button">Sign in</a>
 		   	</c:otherwise>
 		   </c:choose>
 	   </div>
 	
 	   <c:choose>
 			<c:when test="${empty blogPosts}">
-				<p>Blog ${blogName} has no messages.</p>
+				<p></p>
 			</c:when>
 			<c:otherwise>
 				<c:forEach var="blogPost" items="${blogPosts}">
@@ -96,7 +77,8 @@
 							<c:set var="blogpost_user_string" value="an anonymous person"/>
 						</c:when>
 						<c:otherwise>
-							<c:set var="blogpost_user_string" value="<b>${blogpost_user}</b>"/>
+							<% System.out.println("user is " + pageContext.getAttribute("blogpost_user")); %>
+							<c:set var="blogpost_user_string" value="<b>${blogpost_user}<b>"/>
 						</c:otherwise>
 					</c:choose>
 

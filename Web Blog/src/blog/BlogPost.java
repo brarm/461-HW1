@@ -1,5 +1,6 @@
 package blog;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.google.appengine.api.users.User;
@@ -15,7 +16,7 @@ public class BlogPost implements Comparable<BlogPost> {
     String title;
     String content;
     Date date;
-
+    
     BlogPost() {}
 
     public BlogPost(User user, String content) {
@@ -69,6 +70,19 @@ public class BlogPost implements Comparable<BlogPost> {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	
+	@Override
+	/*
+	 * http://stackoverflow.com/a/13475390 for string format
+	 */
+	public String toString() {
+		String out = "";
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:MM");
+		out += user.getEmail() + " " + 
+				sdf.format(date) + " " +
+				String.format("%1$"+ 15 + "s", content); // truncated to 15 chars
+		return out;
 	}
 
 	@Override
