@@ -3,6 +3,7 @@ package blog;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
@@ -22,15 +23,31 @@ public class EmailCronJobServlet extends HttpServlet {
 	private static final Logger _logger = Logger.getLogger(EmailCronJobServlet.class.getName());
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 	
+        List<BlogPost> blogPosts = ObjectifyService.ofy().load().type(BlogPost.class).list();
+    	Collections.sort(blogPosts);
+    	
+    	Calendar cal = Calendar.getInstance();
+    	cal.add(Calendar.DATE, -1);
+    	Date cutoffDate = cal.getTime();
+    	
+        String msgBody = "Activity in the past 24 hrs: \n\n";
+    	for (int i = 0; i < blogPosts.size(); i += 1) {
+    		BlogPost post = blogPosts.get(i);
+    		if (post.getDate().after(cutoffDate)) {
+    			msgBody += post.getUser().getNickname() + " posted: \n";
+    			msgBody += post.getTitle() + "\n";
+    			msgBody += post.getContent() + "\n";
+    			msgBody += "On " + post.getDate();
+    			msgBody += "\n\n\n";
+    		}
+    	}
+    	
 		try {
 			_logger.info("Cron Job has been executed");
 			
-			//Put your logic here
-			//BEGIN
-			
 			List<Subscriber> subscribers = ofy().load().type(Subscriber.class).list();
 			
-			subscribers.add(new Subscriber("yanni.georghiades@utexas.edu"));
+			subscribers.add(new Subscriber("yannigeorg@gmail.com"));
 			
 			for (Subscriber s : subscribers) {
 				String subscriberEmail = s.getEmailAddress();
@@ -38,30 +55,22 @@ public class EmailCronJobServlet extends HttpServlet {
 		        Properties props = new Properties();
 		        Session session = Session.getDefaultInstance(props, null);
 
-		        String msgBody = "please work";
-
 		        try {
 		            Message msg = new MimeMessage(session);
-		            msg.setFrom(new InternetAddress("admin@example.com", "Example.com Admin"));
+		            msg.setFrom(new InternetAddress("Admin@web-blog-1226.appspotmail.com", "Web Blog"));
 		            msg.addRecipient(Message.RecipientType.TO,
 		                             new InternetAddress(subscriberEmail, "Mr. User"));
-		            msg.setSubject("Your Example.com account has been activated");
+		            msg.setSubject("Daily Activity Digest: Blog");
 		            msg.setText(msgBody);
 		            Transport.send(msg);
 
 		        } catch (AddressException e) {
-		            // ...
 		        } catch (MessagingException e) {
-		            // ...
 		        }
 			}
-			
-			
-			
-			//END
+
 		}
 		catch (Exception ex) {
-			//Log any exceptions in your Cron Job
 		}
 	}
 	

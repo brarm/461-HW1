@@ -3,6 +3,6 @@
 <cron>
 <url>/cron/email</url>
 <description>Email subscribers with blog updates.</description>
-<schedule>every 2 minutes</schedule>
+<schedule>every 12 hours</schedule>
 </cron>
 </cronentries>
