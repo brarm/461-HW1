@@ -54,14 +54,6 @@
 	
 	List<Subscriber> currentSubscribers = ObjectifyService.ofy().load().type(Subscriber.class).list();
     String newEmail = user.getEmail();
-    boolean subscribed = false;
-    if (currentSubscribers.contains(newEmail)) {
-    	subscribed = true;
-    	pageContext.setAttribute("subscribed", subscribed);
-    }
-    else {
-    	pageContext.setAttribute("subscribed", subscribed);
-    }
 %>
 
 <body>
@@ -78,11 +70,7 @@
 		   		<h3>Hello, ${user.nickname}!</h3>
 		   		<a href="PostPage.jsp" class="btn btn-primary" role="button">Create Post</a>
 		   		<a href="<%= userService.createLogoutURL(request.getRequestURI()) %>" class="btn btn-primary" role="button">Sign out</a>
-		   			<c:if test="${not subscribed}">
-		   				<form action ="/subscribe" method="post">
-		   					<button type="submit" class="btn btn-info">Subscribe</button>
-		   				</form>
-		   			</c:if>
+		   		
 		   	</c:when>
 		   	<c:otherwise>
 		   		<h3>Hello!</h3>
