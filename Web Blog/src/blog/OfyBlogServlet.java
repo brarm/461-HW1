@@ -41,6 +41,11 @@ public class OfyBlogServlet extends HttpServlet {
 		System.out.println("----- init done -----");
 	}
 	
+	@Override
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+		this.doGet(req, resp);
+	}
+	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		System.out.println("do get in ofyBlog!!!!!");
 		UserService userService = UserServiceFactory.getUserService();
@@ -66,7 +71,9 @@ public class OfyBlogServlet extends HttpServlet {
 		req.setAttribute("blogPosts", blogPosts);
 		
 		List<Subscriber> currentSubscribers = ObjectifyService.ofy().load().type(Subscriber.class).list();	    
-	    req.setAttribute("currentSubscribers", currentSubscribers);
+	    
+		
+		
 	    System.out.println("forwarding to /ofyblog.jsp from BlogServlet doGet");
 		req.getRequestDispatcher("/ofyblog.jsp").forward(req, resp);
 		System.out.println("after forward to /ofyblog.jsp from BlogServlet doGet\n\n");

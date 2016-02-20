@@ -41,21 +41,21 @@
 		   	<c:when test="${logged_in}">
 		   		<h3>Hello, ${user.nickname}!</h3>
 		   		
-		   		<form class="form-inline" action="/post" method="get">
+		   		<form class="form-inline" action="/blogpost" method="get">
 		   			<div class="form-group">
-	   					<input type="submit" class="btn btn-primary" role="button"Create Post</button>
+	   					<input type="submit" class="btn btn-primary" role="button" value="Create Post">
 	   				</div>
    				</form>
    				<form class="form-inline">
 	   				<div class="form-group">
-	   					<a href="<%= request.getAttribute("logoutURL") %>" class="btn btn-primary" role="button">Sign Out</button>
+	   					<a href="<%= request.getAttribute("logoutURL") %>" class="btn btn-primary" role="button">Sign Out</a>
 	   				</div>
 				</form>
 		   	</c:when>
 		   	<c:otherwise>
 		   		<h3>Hello!</h3>
 		   		<h4>You must be signed in to post</h4>
-		   		<p><a href="<%= request.getAttribute("loginURL") %>" class="btn btn-success" role="button">Sign in</a>
+		   		<p><a href="<%= request.getAttribute("loginURL") %>" class="btn btn-success" role="button">Sign in</a></p>
 		   	</c:otherwise>
 		   </c:choose>
 	   </div>

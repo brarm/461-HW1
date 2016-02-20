@@ -14,7 +14,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Bootstrap 101 Template</title>
+    <title>YnM Web Blog</title>
 
     <!-- Bootstrap -->
     <link href="stylesheets/css/bootstrap.min.css" rel="stylesheet">
@@ -38,7 +38,7 @@
 			<p class="lead blog-description">Write a new post here</p>
 		</div>
     	
-	    <form class="form-horizontal" role="form" action="/post" method="post">
+	    <form class="form-horizontal" role="form" action="/blogpost" method="POST">
 	    	<div class="form-group row">
 	    		<div class="text-center">
 	    			<h1></h1>
@@ -59,7 +59,7 @@
 		    <div class="form-group row"> 
 		      <div class="col-sm-offset-2 col-sm-10 text-center">
 		        <button type="submit" class="btn btn-primary">Post to Blog</button>
-		        <form action="/home" method="get">
+		        <form action="/home" method="GET">
 		        	<button type="button" class="btn btn-default">Cancel</button>
 		        </form>
 		      </div>

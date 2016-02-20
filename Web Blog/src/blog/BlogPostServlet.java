@@ -30,7 +30,8 @@ public class BlogPostServlet extends HttpServlet {
 	}
 	
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        UserService userService = UserServiceFactory.getUserService();
+        System.out.println("doPost in blogpost!!!!!!");
+		UserService userService = UserServiceFactory.getUserService();
         User user = userService.getCurrentUser();
 
         String title = req.getParameter("title");
@@ -45,6 +46,7 @@ public class BlogPostServlet extends HttpServlet {
         Objectify ofy = ofy();
         ofy.save().entity(post).now();
         
-        req.getRequestDispatcher("/home").forward(req, resp);
+        System.out.println("redirecting to homepage from blogpost!!!!!!");
+        req.getRequestDispatcher("/homepage").forward(req, resp);
     }
 }
