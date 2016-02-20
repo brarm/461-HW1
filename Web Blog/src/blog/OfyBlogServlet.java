@@ -57,6 +57,13 @@ public class OfyBlogServlet extends HttpServlet {
 			req.setAttribute("email", user.getEmail());
 			String logoutURL =  userService.createLogoutURL(req.getRequestURI());
 			req.setAttribute("logoutURL", logoutURL);
+			
+			List<Subscriber> currentSubscribers = ObjectifyService.ofy().load().type(Subscriber.class).list();	    
+		    Subscriber sub = new Subscriber(user.getEmail());
+		    if(currentSubscribers.contains(sub))
+		    	req.setAttribute("subscribed", true);
+		    else
+		    	req.setAttribute("subscribed", false);
 		} else {
 			req.setAttribute("logged_in", false);
 			String loginURL =  userService.createLoginURL(req.getRequestURI());
@@ -68,11 +75,7 @@ public class OfyBlogServlet extends HttpServlet {
 		
 		List<BlogPost> blogPosts = ObjectifyService.ofy().load().type(BlogPost.class).list();
 		Collections.sort(blogPosts);
-		req.setAttribute("blogPosts", blogPosts);
-		
-		List<Subscriber> currentSubscribers = ObjectifyService.ofy().load().type(Subscriber.class).list();	    
-	    
-		
+		req.setAttribute("blogPosts", blogPosts);	
 		
 	    System.out.println("forwarding to /ofyblog.jsp from BlogServlet doGet");
 		req.getRequestDispatcher("/ofyblog.jsp").forward(req, resp);

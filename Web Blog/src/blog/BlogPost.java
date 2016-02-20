@@ -78,10 +78,14 @@ public class BlogPost implements Comparable<BlogPost> {
 	 */
 	public String toString() {
 		String out = "";
+		if(user != null) 
+			out += "Anonymous ";
+		else
+			out += user.getEmail(); 
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:MM");
-		out += user.getEmail() + " " + 
-				sdf.format(date) + " " +
-				String.format("%1$"+ 15 + "s", content); // truncated to 15 chars
+		out += sdf.format(date) + " " + String.format("%1$"+ 15 + "s", content);
+		
 		return out;
 	}
 
