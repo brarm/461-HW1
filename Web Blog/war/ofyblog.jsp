@@ -83,11 +83,11 @@
 		   </c:if>
 	   
 		   <c:choose>
-		   		<c:when test="${trunc}">
-		   			<a href="/homepage" class="btn btn-block" role="button">View All Posts</a>
+		   		<c:when test="${truncated}">
+		   			<a href="/homepage?posts=all" class="btn btn-block" role="button">View All Posts</a>
 		   		</c:when>
 		   		<c:otherwise>
-		   			<a href="/homepage?posts=5" class="btn btn-block" role="button">View Fewer Posts</a>
+		   			<a href="/homepage?posts=some" class="btn btn-block" role="button">View Fewer Posts</a>
 		   		</c:otherwise>
 		   </c:choose>
 	   </div>
