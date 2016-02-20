@@ -9,6 +9,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page session="true" %>
+<%@ page language="java" session="true" %>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
@@ -35,7 +36,7 @@
 		<div class="jumbotron">
 			<div class="blog-header">
 	      	<h1 class="blog-title">${blogName}</h1>
-	   		<p class="lead blog-description">This is a web blog. What did you expect?</p>
+	   		<p class="lead blog-description">This is a basic web blog implemented with servlets and jsp.</p>
 		   </div>
 
 		   <c:choose>
@@ -68,8 +69,7 @@
 				</form>
 		   	</c:when>
 		   	<c:otherwise>
-		   		<h3>Hello!</h3>
-		   		<h4>You must be signed in to post</h4>
+		   		<p class="lead blog-description">Sign in to start posting and subscibe!</p>
 		   		<p><a href="<%= request.getAttribute("loginURL") %>" class="btn btn-success" role="button">Sign in</a></p>
 		   	</c:otherwise>
 		   </c:choose>
@@ -80,7 +80,7 @@
 		   		<div class="alert alert-success">
 		   			<strong>Success!</strong> <c:out value="${sessionScope.message}"/>
 	   			</div> 
-		   		<%=	session.setAttribute( "message", "" ); %>
+		   		<%	session.removeAttribute("message"); %>
 		   </c:if>
 	   
 		   <c:choose>

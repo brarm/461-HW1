@@ -72,7 +72,8 @@ public class OfyBlogServlet extends HttpServlet {
 		/* truncation if input parameter specified and <=10 in case of manual user nav */
 		/* truncation by default and all posts if user requests */
 		if(posts.isEmpty() || posts.equalsIgnoreCase("some")) {
-			blogPosts = blogPosts.subList(0, 5);
+			if(blogPosts.size() > 5) 
+				blogPosts = blogPosts.subList(0, 5);
 			req.setAttribute("truncated", true);
 		} else if (posts.equalsIgnoreCase("all")) {
 			req.setAttribute("truncated", false);

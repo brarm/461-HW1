@@ -14,7 +14,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>YnM Web Blog</title>
+    <title>YnM WEB BLOG</title>
 
     <!-- Bootstrap -->
     <link href="stylesheets/css/bootstrap.min.css" rel="stylesheet">
@@ -59,7 +59,7 @@
 		    <div class="form-group row"> 
 		      <div class="col-sm-offset-2 col-sm-10 text-center">
 		        <button type="submit" class="btn btn-primary">Post to Blog</button>
-		        <form action="/home" method="GET">
+		        <form action="/homepage" method="GET">
 		        	<button type="button" class="btn btn-default">Cancel</button>
 		        </form>
 		      </div>
