@@ -80,6 +80,7 @@
 		   		<div class="alert alert-success">
 		   			<strong>Success!</strong> <c:out value="${sessionScope.message}"/>
 	   			</div> 
+		   		<%=	session.setAttribute( "message", "" ); %>
 		   </c:if>
 	   
 		   <c:choose>
