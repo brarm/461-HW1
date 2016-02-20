@@ -42,9 +42,8 @@ public class BlogPostServlet extends HttpServlet {
         	post = new BlogPost(user, title, content);
         }
 
-        Objectify ofy = ofy();
-        ofy.save().entity(post).now();
+        ofy().save().entity(post).now();
         
-        req.getRequestDispatcher("/home").forward(req, resp);
+        req.getRequestDispatcher("/homepage").forward(req, resp);
     }
 }

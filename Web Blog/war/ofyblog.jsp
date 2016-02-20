@@ -43,12 +43,12 @@
 		   		
 		   		<form class="form-inline" action="/post" method="get">
 		   			<div class="form-group">
-	   					<input type="submit" class="btn btn-primary" role="button"Create Post</button>
+	   					<input type="submit" class="btn btn-primary" role="button" value="Create Post"></button>
 	   				</div>
    				</form>
    				<form class="form-inline">
 	   				<div class="form-group">
-	   					<a href="<%= request.getAttribute("logoutURL") %>" class="btn btn-primary" role="button">Sign Out</button>
+	   					<a href="<%= request.getAttribute("logoutURL") %>" class="btn btn-primary" role="button">Sign Out</a>
 	   				</div>
 				</form>
 		   	</c:when>

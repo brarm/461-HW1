@@ -77,12 +77,22 @@ public class BlogPost implements Comparable<BlogPost> {
 	 * http://stackoverflow.com/a/13475390 for string format
 	 */
 	public String toString() {
-		String out = "";
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:MM");
-		out += user.getEmail() + " " + 
-				sdf.format(date) + " " +
-				String.format("%1$"+ 15 + "s", content); // truncated to 15 chars
-		return out;
+		if (user != null) {
+			String out = "";
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:MM");
+			out += user.getEmail() + " " + 
+					sdf.format(date) + " " +
+					String.format("%1$"+ 15 + "s", content); // truncated to 15 chars
+			return out;
+		}
+		else {
+			String out = "";
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:MM");
+			out += "Anonymous" + " " + 
+					sdf.format(date) + " " +
+					String.format("%1$"+ 15 + "s", content); // truncated to 15 chars
+			return out;
+		}
 	}
 
 	@Override
