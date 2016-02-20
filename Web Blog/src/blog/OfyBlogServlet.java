@@ -4,6 +4,7 @@ package blog;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -39,6 +40,10 @@ public class OfyBlogServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		UserService userService = UserServiceFactory.getUserService();
 		User user = userService.getCurrentUser();
+		
+		int posts = -1;
+		if(!req.getParameterMap().isEmpty())
+			posts = Integer.parseInt(req.getParameter("posts"));
 					
 		if(userService.isUserLoggedIn()) {
 			req.setAttribute("logged_in", true);
@@ -64,8 +69,14 @@ public class OfyBlogServlet extends HttpServlet {
 		
 		List<BlogPost> blogPosts = ObjectifyService.ofy().load().type(BlogPost.class).list();
 		Collections.sort(blogPosts);
+		/* truncation if input parameter specified and <=10 in case of manual user nav */
+		if(posts > 0 && posts <= 10) {
+			blogPosts = blogPosts.subList(0, 5);
+			req.setAttribute("trunc", true);
+		} else {
+			req.setAttribute("trunc", false);
+		}
 		req.setAttribute("blogPosts", blogPosts);
-		
 		req.getRequestDispatcher("/ofyblog.jsp").forward(req, resp);
 	}
 }

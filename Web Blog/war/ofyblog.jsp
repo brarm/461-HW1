@@ -59,7 +59,6 @@
 		   						<input type="submit" class="btn btn-primary" role="button" value="Subscribe">
 		   					</c:otherwise>
 		   				</c:choose>
-	   					
 	   				</div>
 				</form>
    				<form class="form-inline">
@@ -76,11 +75,22 @@
 		   </c:choose>
 	   </div>
 	
-	   <c:if test="${not empty message}">
-	   		<div class="alert alert-success">
-	   			<strong>Success!</strong> <c:out value="${sessionScope.message}"/>
-   			</div> 
-	   </c:if>
+	   <div style="inline-block">
+		   <c:if test="${not empty message}">
+		   		<div class="alert alert-success">
+		   			<strong>Success!</strong> <c:out value="${sessionScope.message}"/>
+	   			</div> 
+		   </c:if>
+	   
+		   <c:choose>
+		   		<c:when test="${trunc}">
+		   			<a href="/homepage" class="btn btn-block" role="button">View All Posts</a>
+		   		</c:when>
+		   		<c:otherwise>
+		   			<a href="/homepage?posts=5" class="btn btn-block" role="button">View Fewer Posts</a>
+		   		</c:otherwise>
+		   </c:choose>
+	   </div>
 	   
 	   <c:choose>
 			<c:when test="${empty blogPosts}">
@@ -98,7 +108,7 @@
 							<c:set var="blogpost_user_string" value="an anonymous person"/>
 						</c:when>
 						<c:otherwise>
-							<c:set var="blogpost_user_string" value="<b>${blogpost_user}<b>"/>
+							<c:set var="blogpost_user_string" value="<b>${blogpost_user}</b>"/>
 						</c:otherwise>
 					</c:choose>
 
