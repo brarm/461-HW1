@@ -8,6 +8,7 @@
 <%@ page import="com.googlecode.objectify.*" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page session="true" %>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
@@ -40,12 +41,27 @@
 		   <c:choose>
 		   	<c:when test="${logged_in}">
 		   		<h3>Hello, ${user.nickname}!</h3>
-		   		
 		   		<form class="form-inline" action="/blogpost" method="get">
 		   			<div class="form-group">
 	   					<input type="submit" class="btn btn-primary" role="button" value="Create Post">
 	   				</div>
    				</form>
+   				<form class="form-inline" action="/subscribe" method="post">
+   					<input type="hidden" name="email" value="${email}">
+   					<div class="form-group">
+		   				<c:choose>
+		   					<c:when test="${subscribed}">
+		   						<input type="hidden" name="sub" value="false">
+		   						<input type="submit" class="btn btn-primary" role="button" value="Unsubscribe">
+		   					</c:when>
+		   					<c:otherwise>
+		   						<input type="hidden" name="sub" value="true">
+		   						<input type="submit" class="btn btn-primary" role="button" value="Subscribe">
+		   					</c:otherwise>
+		   				</c:choose>
+	   					
+	   				</div>
+				</form>
    				<form class="form-inline">
 	   				<div class="form-group">
 	   					<a href="<%= request.getAttribute("logoutURL") %>" class="btn btn-primary" role="button">Sign Out</a>
@@ -60,6 +76,12 @@
 		   </c:choose>
 	   </div>
 	
+	   <c:if test="${not empty message}">
+	   		<div class="alert alert-success">
+	   			<strong>Success!</strong> <c:out value="${sessionScope.message}"/>
+   			</div> 
+	   </c:if>
+	   
 	   <c:choose>
 			<c:when test="${empty blogPosts}">
 				<p></p>
@@ -76,7 +98,6 @@
 							<c:set var="blogpost_user_string" value="an anonymous person"/>
 						</c:when>
 						<c:otherwise>
-							<% System.out.println("user is " + pageContext.getAttribute("blogpost_user")); %>
 							<c:set var="blogpost_user_string" value="<b>${blogpost_user}<b>"/>
 						</c:otherwise>
 					</c:choose>

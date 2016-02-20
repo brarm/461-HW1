@@ -24,7 +24,6 @@ public class BlogPostServlet extends HttpServlet {
 	}
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("----- doGet in BlogPost -----");
 		RequestDispatcher rd = req.getRequestDispatcher("/blogpost.jsp");
 		rd.forward(req, resp);
 	}
