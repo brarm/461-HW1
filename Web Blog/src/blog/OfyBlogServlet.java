@@ -27,6 +27,10 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 
 public class OfyBlogServlet extends HttpServlet {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	String blogName = "";
 	
 	public void init(ServletConfig config) throws ServletException {
@@ -43,8 +47,15 @@ public class OfyBlogServlet extends HttpServlet {
 		User user = userService.getCurrentUser();
 					
 		if(userService.isUserLoggedIn()) {
+			req.setAttribute("logged_in", true);
 			req.setAttribute("user", user);
 			req.setAttribute("email", user.getEmail());
+			String logoutURL =  userService.createLogoutURL(req.getRequestURI());
+			req.setAttribute("logoutURL", logoutURL);
+		} else {
+			req.setAttribute("logged_in", false);
+			String loginURL =  userService.createLoginURL(req.getRequestURI());
+			req.setAttribute("loginURL", loginURL);
 		}
 		
 		String blogName = this.blogName;

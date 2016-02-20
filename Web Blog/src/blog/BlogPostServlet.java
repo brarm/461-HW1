@@ -47,5 +47,4 @@ public class BlogPostServlet extends HttpServlet {
         
         req.getRequestDispatcher("/home").forward(req, resp);
     }
-
 }

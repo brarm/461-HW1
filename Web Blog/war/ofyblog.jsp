@@ -38,7 +38,7 @@
 		   </div>
 
 		   <c:choose>
-		   	<c:when test="${user != null}">
+		   	<c:when test="${logged_in}">
 		   		<h3>Hello, ${user.nickname}!</h3>
 		   		
 		   		<form class="form-inline" action="/post" method="get">
@@ -48,15 +48,14 @@
    				</form>
    				<form class="form-inline">
 	   				<div class="form-group">
-	   					
-	   					<a href="<%= ((UserService)request.getAttribute("userService")).createLogoutURL(request.getRequestURI()) %>" class="btn btn-primary" role="button">Sign Out</button>
+	   					<a href="<%= request.getAttribute("logoutURL") %>" class="btn btn-primary" role="button">Sign Out</button>
 	   				</div>
 				</form>
 		   	</c:when>
 		   	<c:otherwise>
 		   		<h3>Hello!</h3>
 		   		<h4>You must be signed in to post</h4>
-		   		<p><a href="<%= ((UserService)request.getAttribute("userService")).createLoginURL(request.getRequestURI()) %>" class="btn btn-success" role="button">Sign in</a>
+		   		<p><a href="<%= request.getAttribute("loginURL") %>" class="btn btn-success" role="button">Sign in</a>
 		   	</c:otherwise>
 		   </c:choose>
 	   </div>
